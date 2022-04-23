@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product\Category;
 use App\Models\Product\Product;
-use App\Models\Product\ProductGallery;
+use App\Models\Product\Gallery;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use illuminate\Support\Str;
@@ -66,7 +66,7 @@ class ProductsSeeder extends Seeder
                 ];
             }
             if ($gallery) {
-                ProductGallery::insert($gallery);
+                Gallery::insert($gallery);
             }
         }
     }

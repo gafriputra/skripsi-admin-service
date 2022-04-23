@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Store\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\GalleryRequest;
 use App\Models\Product\Product;
-use App\Models\Product\ProductGallery;
+use App\Models\Product\Gallery;
 
 use Illuminate\Http\Request;
 
@@ -55,7 +55,7 @@ class GalleriesController extends Controller
             $data['status'] = 0;
         }
 
-        ProductGallery::create($data);
+        Gallery::create($data);
         return redirect()->route('gallery.show', $data['product_id']);
     }
 
@@ -67,7 +67,7 @@ class GalleriesController extends Controller
      */
     public function show($id)
     {
-        $items = ProductGallery::with('product')->where(['product_id' => $id])->get();
+        $items = Gallery::with('product')->where(['product_id' => $id])->get();
         $product = Product::findOrFail($id);
         return view('pages.admin.product.gallery')->with([
             'items' => $items,
@@ -84,7 +84,7 @@ class GalleriesController extends Controller
     public function edit($id)
     {
         // jika ketemu keluarkan data, jika tidak lgsg page 404
-        $item = ProductGallery::findOrFail($id);
+        $item = Gallery::findOrFail($id);
         return view('pages.admin.product.form-gallery', [
             'item' => $item
         ]);
@@ -115,7 +115,7 @@ class GalleriesController extends Controller
             $data['status'] = 0;
         }
 
-        $item = ProductGallery::findOrFail($id);
+        $item = Gallery::findOrFail($id);
         $item->update($data);
         return redirect()->route('gallery.show', $data['product_id']);
     }
@@ -128,7 +128,7 @@ class GalleriesController extends Controller
      */
     public function destroy($id)
     {
-        $item = ProductGallery::findOrFail($id);
+        $item = Gallery::findOrFail($id);
         $item->delete();
 
         return redirect()->route('product-galleries.index');

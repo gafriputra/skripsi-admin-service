@@ -114,7 +114,7 @@ class ProductCategoriesController extends Controller
         // hapus
         $item->delete();
         // hapus gambar
-        // ProductGallery::where('product_id', $id)->delete();
+        // Gallery::where('product_id', $id)->delete();
         return redirect()->route('product-categories.index');
     }
 }
