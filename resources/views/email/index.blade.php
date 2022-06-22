@@ -213,8 +213,8 @@
                         <tbody>
                           <tr>
                             <td style="width:550px;">
-                                {{-- @dump($data->details[0]->product->productGalleries[0]->image) --}}
-                                <img alt="" height="auto" src="{{$data->details[0]->product->productGalleries[0]->image }}" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="550" />
+                                {{-- @dump($data->details[0]->product->galleries[0]->image) --}}
+                                <img alt="" height="auto" src="{{$data->details[0]->product->galleries[0]->image }}" style="border:none;display:block;outline:none;text-decoration:none;height:auto;width:100%;font-size:13px;" width="550" />
                             </td>
                           </tr>
                         </tbody>

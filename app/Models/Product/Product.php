@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Product\Category;
 use App\Models\Product\Gallery;
-use App\Models\Product\ProductDocument;
+use App\Models\Product\Document;
 
 
 class Product extends Model
@@ -31,14 +31,14 @@ class Product extends Model
     }
 
     // bikin relasi ke gallery
-    public function productGalleries()
+    public function galleries()
     {
         return $this->hasMany(Gallery::class, 'product_id', 'id');
     }
 
     // bikin relasi ke gDocumentallery
-    public function productDocuments()
+    public function documents()
     {
-        return $this->hasMany(ProductDocument::class, 'product_id', 'id');
+        return $this->hasMany(Document::class, 'product_id', 'id');
     }
 }

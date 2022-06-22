@@ -100,8 +100,8 @@
                             <td>{{$item->name}}</td>
                             <td>Rp. {{number_format($item->price, 0, ',', '.')}}</td>
                             <td>{{$item->category->name}}</td>
-                            <td>{{$item->productGalleries->count()}} Gambar</td>
-                            <td>{{$item->productDocuments->count()}} File</td>
+                            <td>{{$item->galleries->count()}} Gambar</td>
+                            <td>{{$item->documents->count()}} File</td>
                             <td>
                                 @if ($item->status == 1)
                                     <div class="badge badge-warning">ON</div>

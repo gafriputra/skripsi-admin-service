@@ -12,6 +12,7 @@ use App\Http\Requests\API\CheckoutRequest;
 // use App\Models\Product\Product;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
+use Illuminate\Support\Facades\Mail as FacadesMail;
 
 class CheckoutController extends Controller
 {
@@ -21,6 +22,8 @@ class CheckoutController extends Controller
         // masukkan semua dari transaction_details
         $data = $request->except('transaction_details');
         $data['uuid'] = 'TRX-' . mt_rand(10000, 99999) . mt_rand(100, 999);
+        $data['shipping'] = 0 ;
+        $data['status'] = 'order';
 
         $transaction = Transaction::create($data);
 
@@ -37,9 +40,9 @@ class CheckoutController extends Controller
         $transaction->details()->saveMany($details);
 
 
-        $transaction = Transaction::with('details.product.productGalleries')->where('uuid', $data['uuid'])->first();
+        $transaction = Transaction::with('details.product.galleries')->where('uuid', $data['uuid'])->first();
         // Email
-        Mail::to($transaction->email)->send(
+        FacadesMail::to($transaction->email)->send(
             new TransactionSuccess($transaction)
         );
 

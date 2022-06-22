@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\Store\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product\Product;
-use App\Models\Product\ProductDocument;
+use App\Models\Product\Document;
 use Illuminate\Http\Request;
 
 class DocumentsController extends Controller
@@ -45,7 +45,7 @@ class DocumentsController extends Controller
             $data['status'] = 0;
         }
 
-        ProductDocument::create($data);
+        Document::create($data);
         return redirect()->route('document.show', $data['product_id']);
     }
 
@@ -57,7 +57,7 @@ class DocumentsController extends Controller
      */
     public function show($id)
     {
-        $items = ProductDocument::with('product')->where(['product_id' => $id])->get();
+        $items = Document::with('product')->where(['product_id' => $id])->get();
         $product = Product::findOrFail($id);
         return view('pages.admin.product.document')->with([
             'items' => $items,
@@ -74,7 +74,7 @@ class DocumentsController extends Controller
     public function edit($id)
     {
         // jika ketemu keluarkan data, jika tidak lgsg page 404
-        $item = ProductDocument::findOrFail($id);
+        $item = Document::findOrFail($id);
         return view('pages.admin.product.form-document', [
             'item' => $item
         ]);
@@ -95,7 +95,7 @@ class DocumentsController extends Controller
             $data['status'] = 0;
         }
 
-        $item = ProductDocument::findOrFail($id);
+        $item = Document::findOrFail($id);
         $item->update($data);
         return redirect()->route('document.show', $data['product_id']);
     }

@@ -20,7 +20,7 @@ class ProductsController extends Controller
     public function index()
     {
         // ambil semua data
-        $items = Product::with(['category', 'productGalleries', 'productDocuments'])->orderBy('id', 'DESC')->get();
+        $items = Product::with(['category', 'galleries', 'documents'])->orderBy('id', 'DESC')->get();
         return view('pages.admin.product.product', [
             'items' => $items
         ]);

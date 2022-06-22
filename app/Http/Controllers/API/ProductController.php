@@ -19,7 +19,7 @@ class ProductController extends Controller
         $price_to = $request->input('price_to');
 
         if ($id) {
-            $product = Product::with(['category', 'productGalleries', 'productDocuments'])->find($id);
+            $product = Product::with(['category', 'galleries', 'documents'])->find($id);
 
             if ($product) {
                 return ResponseFormatter::success($product, 'Data produk berhasil diambil');
@@ -29,7 +29,7 @@ class ProductController extends Controller
         }
 
         if ($slug) {
-            $product = Product::with(['category', 'productGalleries', 'productDocuments'])->where('slug', $slug)->first();
+            $product = Product::with(['category', 'galleries', 'documents'])->where('slug', $slug)->first();
 
             if ($product) {
                 return ResponseFormatter::success($product, 'Data produk berhasil diambil');
@@ -38,7 +38,7 @@ class ProductController extends Controller
             }
         }
 
-        $product = Product::with(['category', 'productGalleries', 'productDocuments']);
+        $product = Product::with(['category', 'galleries', 'documents']);
         if ($name) {
             $product->where('name', 'like', '%' . $name . '%');
         }
