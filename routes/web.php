@@ -22,9 +22,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('/invoice', 'InvoiceController');
-Route::get('/kirim-invoice', 'InvoiceController@tampil')->name('kirim-invoice');
-
 Route::prefix('admin')
     ->middleware(['auth', 'admin', 'verified']) // nambahin satpamnya dr kernel
     ->group(function () {
