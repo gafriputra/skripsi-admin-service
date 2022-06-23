@@ -17,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware(['cors'])->group(function () {
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
 
-Route::get('products', [ProductController::class, 'all']);
-Route::post('checkout', [CheckoutController::class, 'checkout']);
-Route::get('transactions/{id}', [TransactionController::class, 'get']);
+    Route::get('products', [ProductController::class, 'all']);
+    Route::post('checkout', [CheckoutController::class, 'checkout']);
+    Route::get('transactions/{id}', [TransactionController::class, 'get']);
+});
