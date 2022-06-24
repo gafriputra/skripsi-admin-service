@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Store\Product\GalleriesController;
 use App\Http\Controllers\Admin\Store\Product\ProductCategoriesController;
 use App\Http\Controllers\Admin\Store\Product\ProductsController;
 use App\Http\Controllers\Admin\Store\TransactionsController;
+use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +36,7 @@ Route::prefix('admin')
         Route::resource('gallery', GalleriesController::class);
         Route::resource('document', DocumentsController::class);
         Route::resource('transaction', TransactionsController::class);
-        Route::get('transactionStatus', 'Store\TransactionsController@setStatus')->name('transactionStatus');
+        Route::get('transactionStatus', [TransactionsController::class, 'setStatus'])->name('transactionStatus');
 
         Route::get('/document', function () {
             return view('pages.admin.product.document');
@@ -44,6 +45,4 @@ Route::prefix('admin')
             return view('pages.admin.product.form-document');
         })->name('form-document');
     });
-
-
-Route::get('/pdf/{id}', 'PdfController@print')->name('print');
+Route::get('/pdf/{id}', [PdfController::class, 'print'])->name('print');
