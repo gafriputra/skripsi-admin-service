@@ -32,8 +32,8 @@ class CheckoutController extends Controller
             foreach ($request->transaction_details as $product) {
                 $details[] = new TransactionDetail([
                     'transaction_id' => $transaction->id,
-                    'product_id' => $product[0],
-                    'quantity' => $product[1]
+                    'product_id' => $product['product_id'],
+                    'quantity' => $product['qty']
                 ]);
             }
             // nyimpan relasinya, lalu save langsung banyak

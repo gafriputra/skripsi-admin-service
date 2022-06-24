@@ -17,10 +17,10 @@ class TransactionsController extends Controller
    public function index(Request $request)
    {
        $status = $request->input('status');
-       $items = Transaction::orderBy('id','DESC')->get();
-
        if ($status) {
             $items = Transaction::where('transaction_status', $status)->orderBy('id', 'DESC')->get();
+       }else{
+            $items = Transaction::orderBy('id','DESC')->get();
        }
 
        return view('pages.admin.transaction.index')->with([
