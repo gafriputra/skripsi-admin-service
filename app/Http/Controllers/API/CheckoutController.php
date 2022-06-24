@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use Mail;
-use App\Mail\TransactionSuccess;
 
 
 use App\Http\Controllers\Controller;
+use App\Http\Mail\TransactionSuccess;
 use App\Http\Requests\API\CheckoutRequest;
 // ambil model
 // use App\Models\Product\Product;
@@ -14,7 +13,7 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail as FacadesMail;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutController extends Controller
 {
@@ -40,9 +39,13 @@ class CheckoutController extends Controller
             $transaction->details()->saveMany($details);
             $transaction = Transaction::with('details.product.galleries')->where('uuid', $data['uuid'])->first();
             // Email
-            FacadesMail::to($transaction->email)->send(
-                new TransactionSuccess($transaction)
-            );
+            try {
+                Mail::to($transaction->email)->send(
+                    new TransactionSuccess($transaction)
+                );
+            } catch (\Throwable $th) {
+                $transaction->error = $th->getMessage();
+            }
             DB::commit();
             return ResponseFormatter::success($transaction);
         } catch (\Throwable $th) {
